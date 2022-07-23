@@ -5,6 +5,8 @@
             <img class="card-img" src="{{ card.card_image.url }}">
         {% else %}
             Image Missing
+            <!-- Adding a placeholder cardback image in case a real card image is not available, just to show something -->
+            <img class="card-img" src="{% static 'img/fow_cardback.png' %}">
         {% endif %}
     </div>
     <div class="card-right-half">
