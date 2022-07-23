@@ -48,6 +48,7 @@ class Command(BaseCommand):
             
             # * is a special character for double sided cards, can't save * in Windows filenames. Use ^ instead
             # Adjusted file extension to PNG
+            '''img_destination = ("%s%s.jpg" % (dir_to_save, code)).replace('*', CONS.DOUBLE_SIDED_CARD_CHARACTER)'''
             img_destination = ("%s%s.png" % (dir_to_save, code)).replace('*', CONS.DOUBLE_SIDED_CARD_CHARACTER)
             if os.path.isfile(img_destination):
                 print("Skipping img that already exists: " + img_destination)
