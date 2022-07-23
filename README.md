@@ -16,7 +16,7 @@
 ## Extra installation and configuration for stream overlay components:
 1. Upload contents of [sse_data] folder to a PHP capable publically accessible host. The system relies on EventSource functionality so ensure your web server supports this.
     * _Currently this cannot run as part of the Django platform FoWsim runs on and must be hosted externally._
-2. [WIP] Edit push and pull urls in fowsim templates to point to PHP capable server
+2. Update `SSE_BASE_URL` in settings.py to reflect the hosted location of the [sse_data] contents.
 3. Add `http://url.to.fowsim/card_overlay_start/` to your streaming software of choice as a browser source
     * _Staff/admin accounts are required for both the 'push' tasks as well as the stream overlay. The first load of the overlay will show a login screen for this._
 
