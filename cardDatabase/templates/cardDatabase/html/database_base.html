@@ -20,6 +20,34 @@
         let FOWDB_USE_DEFAULT_DATABASE_SUBMIT = {% block use_default_submit %}true{% endblock %};
         let FOWDB_VIEW_CARD_URL = "{% url 'cardDatabase-view-card' 0 %}".slice(0, -2); //remove trailing "0/" placeholder
     </script>
+        {% if request.user.is_staff %}
+        <script type="text/javascript">
+        function pushToOBS() {
+        
+        $.get('{% settings_value "SSE_BASE_URL" %}push.php?id={% format_id_text card.card_id %}',
+        function(response) {
+        document.getElementById('overlay-push-button').style.background = "green";
+        document.getElementById('overlay-push-button').textContent="Push [{% format_id_text card.card_id %}] to OBS \u{2705}";
+        document.getElementById('overlay-push-button-reset').removeAttribute("style");
+        document.getElementById('overlay-push-button-reset').textContent="OBS Reset";
+    
+        });
+        }
+    
+        function ResetOBS() {
+        
+        $.get('{% settings_value "SSE_BASE_URL" %}push.php?id=XYZ-1234',
+        function(response) {
+        document.getElementById('overlay-push-button-reset').style.background = "green";
+        document.getElementById('overlay-push-button-reset').textContent="OBS Reset \u{2705}";
+        document.getElementById('overlay-push-button').removeAttribute("style");
+        document.getElementById('overlay-push-button').textContent="Push [{% format_id_text card.card_id %}] to OBS";
+    
+        });
+        }
+    
+        </script>
+        {% endif %}
 {% endblock %}
 {% block body %}
     {% block database %}
@@ -244,6 +272,13 @@
                     </div>
                 </form>
             </div>
+            {% if request.user.is_staff %}
+            <div class="overlay-push-button-header" id="overlay-push-button-header" align="center">
+                        {% if card.card_id %}
+                        <button id="overlay-push-button" type="button" onclick="pushToOBS()">Push [{% format_id_text card.card_id %}] to OBS</button> <button id="overlay-push-button-reset" type="button" onclick="ResetOBS()">OBS Reset</button>
+                        {% endif %}
+            </div>
+            {% endif %}
         {% endblock %}
     {% endblock %}
 {% endblock %}

@@ -5,6 +5,7 @@ import re
 import urllib
 
 from django import template
+from django.conf import settings
 from django.utils.safestring import mark_safe
 from django.templatetags.static import static
 from django.urls import reverse
@@ -315,3 +316,8 @@ def get_card_img_urls(card):
         for other_side in other_sides:
             output.append(other_side.card_image.url)
     return str(output).replace('\'', '"')
+
+# Pull SSE URL from settings.py to use in templates
+@register.simple_tag
+def settings_value(name):
+    return getattr(settings, name, "SSE_BASE_URL")

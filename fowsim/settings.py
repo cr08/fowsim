@@ -49,6 +49,9 @@ AWS_DEFAULT_ACL = None
 MEDIAFILES_LOCATION = 'media'
 STATICFILES_LOCATION = 'static'
 
+# URL for card overlay EventSource access. Enter base URL here for location of hosted files from [sse_data]. Example: if hosted at http://your.site/sse/push.php, enter http://your.site/sse/
+SSE_BASE_URL = 'http://your.site/sse/'
+
 if os.environ.get('PRODUCTION'):
     DEFAULT_FILE_STORAGE = 'fowsim.custom_storages.MediaStorage'
     STATICFILES_STORAGE = 'fowsim.custom_storages.StaticStorage'
