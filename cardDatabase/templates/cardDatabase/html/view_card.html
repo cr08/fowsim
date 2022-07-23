@@ -7,7 +7,7 @@
 
 {% block adminoptions %}
     {{ block.super }}
-    {% if user.profile.site_admin %}
+    {% if request.user.is_staff %}
         <a href="{% url 'admin:cardDatabase_card_change' card.pk %}">Edit Card</a>
     {% endif %}
 {% endblock %}

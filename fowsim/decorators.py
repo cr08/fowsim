@@ -8,7 +8,7 @@ from django.conf import settings
 def site_admins(function):
     @wraps(function)
     def wrap(request, *args, **kwargs):
-        if request.user.is_active and request.user.profile.site_admin:
+        if request.user.is_active and request.user.is_staff:
             return function(request, *args, **kwargs)
         else:
             return redirect('/')

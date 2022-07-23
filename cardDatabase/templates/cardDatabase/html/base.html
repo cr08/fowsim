@@ -67,7 +67,7 @@
                                 <a href="{% url 'cardDatabase-user-decklists' %}">My Decklists</a>
                                 <a href="{% url 'cardDatabase-logout' %}?next={{ request.path }}">Logout</a>
                                 {% block adminoptions %}
-                                    {% if user.profile.site_admin %}
+                                    {% if request.user.is_staff %}
                                         <a href="{% url 'admin:index' %}">Admin Site</a>
                                         <a href="{% url 'cardDatabase-add-card' %}">Add Card</a>
                                     {% endif %}
