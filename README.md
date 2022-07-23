@@ -1,4 +1,4 @@
-# This is a modified repo of FoWSim for some personal modifications as listed below. Full original README and install instructions at the bottom of this file.
+# This is a modified repo of FoWSim to add an automated card overlay for live streams and a few related fixes. Demo video posted below. Full original README and install instructions at the bottom of this file.
 
 
 ## To-Do:
