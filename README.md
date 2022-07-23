@@ -1,3 +1,31 @@
+# This is a modified repo of FoWSim for some personal modifications as listed below. Full original README and install instructions at the bottom of this file.
+
+
+## To-Do:
+* ✅ Adding custom card overlay template for streaming
+* ❌ Finalize/fix overlay animations and formatting
+* ❌ Add separate animation for J-Ruler flips that flip directly to the back side instead of the static 'Force of Will' cardback.
+* ✅ Adding 'push' mechanism to card display pages to push out new cards to stream overlay from a remote user
+* ❌ Tracking down missing card images that do not exist on FOWTCG at the time of this commit
+* ❔ Adding missing card info to JSON as needed (Scheherazade bot has a similar JSON card info file which may be more up to date and may need to be merged accordingly)
+* ❔Integrate hosted overlay backend files in [sse_data] into Django/FoWsim proper
+
+## Operational Demo Video:
+* Coming Soon!
+
+## Extra installation and configuration for stream overlay components:
+1. Upload contents of [sse_data] folder to a PHP capable publically accessible host. The system relies on EventSource functionality so ensure your web server supports this.
+    * _Currently this cannot run as part of the Django platform FoWsim runs on and must be hosted externally._
+2. [WIP] Edit push and pull urls in fowsim templates to point to PHP capable server
+3. Add `http://url.to.fowsim/card_overlay_start/` to your streaming software of choice as a browser source
+    * _Staff/admin accounts are required for both the 'push' tasks as well as the stream overlay. The first load of the overlay will show a login screen for this._
+
+## Credits:
+* Force of Wind devs for the upstream project base: https://github.com/Force-of-Wind/fowsim
+* SWUP library for overlay animations: https://swup.js.org/
+
+---
+
 # Running the Server Locally
 
 1. Create a python3 virtual environment (3.9.6):
