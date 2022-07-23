@@ -188,3 +188,4 @@ def resize_image_if_new(sender, instance, **kwargs):
             im.save(im_io, 'JPEG', quality=70)
             instance.card_image = InMemoryUploadedFile(im_io, 'ImageField', f"{instance.card_id}.jpg", 'image/jpeg', sys.getsizeof(im_io), None)
     '''
+    
