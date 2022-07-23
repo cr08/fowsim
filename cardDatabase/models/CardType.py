@@ -163,6 +163,8 @@ class CardColour(models.Model):
 
 @receiver(pre_save, sender=Card)
 def resize_image_if_new(sender, instance, **kwargs):
+    # Commenting out this block of code to prevent unneeded conversions to JPG. We weant to retain the original PNG images.
+    '''
     obj = None
     try:
         obj = sender.objects.get(pk=instance.pk)
@@ -185,3 +187,4 @@ def resize_image_if_new(sender, instance, **kwargs):
             im_io = BytesIO()
             im.save(im_io, 'JPEG', quality=70)
             instance.card_image = InMemoryUploadedFile(im_io, 'ImageField', f"{instance.card_id}.jpg", 'image/jpeg', sys.getsizeof(im_io), None)
+    '''

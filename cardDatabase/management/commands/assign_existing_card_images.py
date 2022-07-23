@@ -14,7 +14,9 @@ class Command(BaseCommand):
 
         for card in models:
             try:
-                card_image_path = os.path.join('cards', f'{card.card_id}.jpg')
+                # Change from JPG to PNG for higher quality images to use in stream overlay
+                card_image_path = os.path.join('cards', f'{card.card_id}.png')
+                '''card_image_path = os.path.join('cards', f'{card.card_id}.jpg')'''
                 if default_storage.exists(card_image_path):
                     card.card_image = card_image_path
                 else:

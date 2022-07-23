@@ -24,7 +24,9 @@ class Command(BaseCommand):
         # Based off code provided by Achifaifa and Kossetsu
         destination = kwargs['destination']
         #results = Parallel(n_jobs=4)(delayed(Command.downloadCardAtIndex)(i, destination) for i in range(0, 6000))
-        for i in range(0, 6000):
+        
+        # Changed start ID from 0 to 1000 as FOWTCG's site starts their card ID's around here. Shorter startup time for this script without needlessly checking the first 1000 that we know do not exist.
+        for i in range(1000, 6000):
             Command.downloadCardAtIndex(i, destination)
 
     @classmethod
@@ -37,17 +39,25 @@ class Command(BaseCommand):
             return
         else:
             elements = html.fromstring(request.read())
-            url = elements.find_class('img-responsive')[0].get('src')
-            code = elements.find_class('prop-value')[0].text.replace("/", "-").replace(' ', '')
+            
+            # Changed elements to match new formatting on FOWTCG's site
+            '''url = elements.find_class('img-responsive')[0].get('src')
+            code = elements.find_class('prop-value')[0].text.replace("/", "-").replace(' ', '')'''
+            url = elements.find_class('mb-12 w-full sm:w-5/12 m-auto')[0].get('src')
+            code = elements.find_class('px-4 pl-12 w-9/12 font-bold')[0].text.replace("/", "-").replace(' ', '')
+            
             # * is a special character for double sided cards, can't save * in Windows filenames. Use ^ instead
-            img_destination = ("%s%s.jpg" % (dir_to_save, code)).replace('*', CONS.DOUBLE_SIDED_CARD_CHARACTER)
+            # Adjusted file extension to PNG
+            img_destination = ("%s%s.png" % (dir_to_save, code)).replace('*', CONS.DOUBLE_SIDED_CARD_CHARACTER)
             if os.path.isfile(img_destination):
                 print("Skipping img that already exists: " + img_destination)
             else:
-                '''
-                # Old method to save source image instead of anti-aliased smaller reduced resolution
+
+                # Swapped retrieval code to keep original unmodified PNG files.
                 urlretrieve(url, img_destination)
                 print('Saved card to: ' + img_destination)
+
+
                 '''
                 image_request = requests.get(url, stream=True)
 
@@ -76,4 +86,5 @@ class Command(BaseCommand):
                 with open(img_destination, 'wb') as output:
                     output.write(im_io.getbuffer())
                 print('Saved image to: ' + img_destination)
+                '''
             return
