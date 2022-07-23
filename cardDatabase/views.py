@@ -373,6 +373,26 @@ def view_card(request, card_id=None):
 
     return render(request, 'cardDatabase/html/view_card.html', context=ctx)
 
+@login_required
+@site_admins
+def view_card_overlay_start(request):
+    return render(request, 'cardDatabase/html/view_card_overlay_start.html', {})
+
+@login_required
+@site_admins
+def view_card_overlay(request, card_id=None):
+    card = get_object_or_404(Card, card_id=card_id)
+    referred_by = Card.objects.filter(ability_texts__text__contains=f'"{card.name}"')
+    ctx = get_search_form_ctx()
+    ctx['card'] = card
+    ctx['referred_by'] = referred_by
+    ctx['basic_form'] = SearchForm()
+    ctx['advanced_form'] = AdvancedSearchForm()
+    set_code, set_name = searchable_set_and_name(card.set_code)
+    ctx['set_name'] = set_name
+    ctx['set_code'] = set_code
+
+    return render(request, 'cardDatabase/html/view_card_overlay.html', context=ctx)
 
 @login_required
 @site_admins

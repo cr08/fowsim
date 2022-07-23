@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+{% load static card_database_tags %}
+{% block html %}
+    <html lang="en">
+        <head>
+            {% block head %}
+                <meta name="description" content="Force of Will Database and Deck Builder">
+                <meta name="keywords" content="Force of Will, FoW, FOW, Trading Card Game, Database, Deck Builder, fowdb, Card Database, fow db, fow cards, fow decks">
+                {% block previewmeta %}
+                    <meta property="og:title" content="{% block ogtitle %}Force of Wind{% endblock %}" />
+                    <meta property="og:description" content="Force of Will database and deck builder!" />
+                    <meta property="og:image" content="{% block image_preview_url %}{% base_site_icon %}{% endblock %}" />
+                {% endblock %}
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>{% block title %}Force of Wind{% block subtitle %} - Database{% endblock %}{% endblock %}</title>
+                {% block favicon %}<link rel="shortcut icon" type="image/png" href="{% static 'img/wind.png' %}"/>{% endblock %}
+                {% block js %}
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+                            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+                            crossorigin="anonymous"></script>
+                    <script type="text/javascript">
+                            let FOWDB_IS_MOBILE = false;
+                    </script>
+                    <script defer src="{% static 'js/swup.min.js' %}"></script>
+                    <script defer src="{% static 'js/swupscript.js' %}"></script>
+                    <script type="text/javascript" language="javascript">
+let currentTimestamp = Date.now();
+var pageTime;
+pageTime = Math.floor(currentTimestamp/1000);
+
+
+if(typeof(EventSource) !== "undefined") {
+    var source=new EventSource("https://ferdonia.tv/cardoverlay/sse.php");
+    source.onmessage = function(event) {
+        var msg = $.parseJSON(event.data);
+
+	if(msg.timestamp > pageTime) {
+
+		if(msg.card == "XYZ-1234") {
+			console.log("OBS_PUSH: Push data new. Pushing to card back/blank slate.");
+			swup.loadPage({url: "/card_overlay_start/"});
+
+		} else {
+			console.log("OBS_PUSH: Push data new. Pushing to " + msg.card);
+			swup.loadPage({url: "/card_overlay/" + msg.card + "/"});
+		}
+		pageTime = msg.timestamp;
+		console.log("OBS_PUSH: pageTime updated");
+
+	} else {
+		console.log("OBS_PUSH: Push data old. We're staying here.");
+    }
+}
+} else {
+    alert("Sorry, your browser does not support server-sent events.");
+}
+
+</script>
+                {% endblock %}
+                {% block css %}
+
+                <link rel="stylesheet" href="{% static 'css/view_card_overlay.css' %}">
+                <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.css' %}">
+                <link rel="stylesheet" href="{% static 'css/bootstrap/mdb.css' %}">
+                <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+                {% endblock %}
+            {% endblock %}
+        </head>
+        <body>
+
+{% block body %}
+
+<div class="card-container">
+    <main id="swup">
+    <div id="swup-card-img card_img_overlay" class="card-left-half card transition-flip center">
+  <div class="front face" style="background-image:url('{% static 'img/fow_cardback.png' %}')"></div>
+  <div class="back face" style="background-image:url('{% static 'img/fow_cardback.png' %}')"></div>
+    </div>
+    </main>
+
+    <main id="swup" class="transition-fade">
+    <div id="swup-card-txt" class="card-right-half">
+        <div class="card-text-info">
+            <div class="card-text-info-title">
+                Name:
+            </div>
+            <div class="card-text-info-text">
+                DERP
+            </div>
+        </div>
+
+            <div class="card-text-info ability-text">
+                <div class="card-text-info-title">
+                    Text:
+                </div>
+                    <div class="card-text-info-text">
+                    DERP
+                    </div>
+
+            </div>
+
+        <div class="card-text-info">
+            <div class="card-text-info-title">
+                ID:
+            </div>
+            <div class="card-text-info-text">
+                DRP-001
+            </div>
+        </div>
+        
+    </div>
+    </main>
+</div>
+{% endblock %}
+        </div>
+        </body>
+    </html>
+{% endblock %}

@@ -9,6 +9,8 @@ urlpatterns = [
     path('', lambda req: redirect('/search/')),
     path('search/', views.search_for_cards, name='cardDatabase-search'),
     path('card/<str:card_id>/', views.view_card, name='cardDatabase-view-card'),
+    path('card_overlay_start/', views.view_card_overlay_start, name='cardDatabase-view-card-overlay-start'),
+    path('card_overlay/<str:card_id>/', views.view_card_overlay, name='cardDatabase-view-card-overlay'),
     path('add_card/', views.add_card, name='cardDatabase-add-card'),
     path('decklists/', views.deprecated_decklist_url, name='cardDatabase-user-decklists'),
     path('create_decklist/', views.create_decklist, name='cardDatabase-create-decklist'),
