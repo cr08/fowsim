@@ -21,7 +21,7 @@
                 </div>
             </div>
             {% for card in cards %}
-                <!--
+                {#
                     
                 Swapping the following lines to fall back to showing something if card images do not exist for a given query. Existing functionality would error out completely. 
                 
@@ -31,7 +31,7 @@
                 To: 
                 {% if card.card_image %}data-card-image-url="{{ card.card_image.url }}" data-card-image-urls='{% get_card_img_urls card %}{% else %}{% endif %}'>
 
-                -->
+                #}
                 <div class="card" data-card-name="{{ card.name }}" data-card-id="{{ card.card_id }}"
                     data-card-image-url="{{ card.card_image.url }}" data-card-image-urls='{% get_card_img_urls card %}'>
                     {% if card.card_image %}data-card-image-url="{{ card.card_image.url }}" data-card-image-urls='{% get_card_img_urls card %}{% else %}{% endif %}'>
