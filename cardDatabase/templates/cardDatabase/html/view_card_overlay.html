@@ -31,7 +31,7 @@ pageTime = Math.floor(currentTimestamp/1000);
 
 
 if(typeof(EventSource) !== "undefined") {
-    var source=new EventSource("https://ferdonia.tv/cardoverlay/sse.php");
+    var source=new EventSource("{% settings_value "SSE_BASE_URL" %}sse.php");
     source.onmessage = function(event) {
         var msg = $.parseJSON(event.data);
 
