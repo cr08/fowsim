@@ -3,12 +3,11 @@
 
 {% block title %}FoWind - {{ card.name }}{% endblock %}
 
-{# 
-Swapping out card image display code to fall back to something if no card image is available. Previous functionality would error out the whole page if no image is available.
+{% comment "Swapping out card image display code to fall back to something if no card image is available. Previous functionality would error out the whole page if no image is available." %}
 
 Old code: {% block image_preview_url %}{{ card.card_image.url }}{% endblock %}
 New: {% block image_preview_url %} {% if card.card_image %}{{ card.card_image.url }}{% else %}NOIMG{% endif %}{% endblock %}
-#}
+{% endcomment %}
 
 {% block image_preview_url %} {% if card.card_image %}{{ card.card_image.url }}{% else %}NOIMG{% endif %}{% endblock %}
 
