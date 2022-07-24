@@ -31,8 +31,11 @@
 
                 {% endcomment %}
                 <div class="card" data-card-name="{{ card.name }}" data-card-id="{{ card.card_id }}"
-                    data-card-image-url="{{ card.card_image.url }}" data-card-image-urls='{% get_card_img_urls card %}'>
-                    {% if card.card_image %}data-card-image-url="{{ card.card_image.url }}" data-card-image-urls='{% get_card_img_urls card %}{% else %}{% endif %}'>
+                    {% if card.card_image %}
+                    data-card-image-url="{{ card.card_image.url }}" data-card-image-urls='{% get_card_img_urls card %}
+                    {% else %}
+                    {% endif %}
+                '>
                     <a href="{% url 'cardDatabase-view-card' card.card_id %}">
                         {% if card.card_image %}
                             <img class="card-img" src="{{ card.card_image.url }}">
