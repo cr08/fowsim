@@ -6,7 +6,7 @@ from . import views
 from .forms import UserLoginForm
 
 urlpatterns = [
-    path('', lambda req: redirect('/search/')),
+    path('', lambda req: redirect('/search/'), name='cardDatabase-home'),
     path('search/', views.search_for_cards, name='cardDatabase-search'),
     path('card/<str:card_id>/', views.view_card, name='cardDatabase-view-card'),
     path('card_overlay_start/', views.view_card_overlay_start, name='cardDatabase-view-card-overlay-start'),
@@ -31,4 +31,5 @@ urlpatterns = [
     path('mobile_only/', views.mobile_only, name='cardDatabase-mobile-only'),
     path('copy_decklist/<int:decklist_id>/', views.copy_decklist, name='cardDatabase-copy-decklist'),
     path('private_decklist/', views.private_decklist, name='cardDatabase-private-decklist'),
+    path('reddit_bot/query/', views.reddit_bot_query, name='cardDatabase-reddit-bot-query'),
 ]
