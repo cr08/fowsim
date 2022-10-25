@@ -11,6 +11,11 @@ New: {% block image_preview_url %} {% if card.card_image %}{{ card.card_image.ur
 
 {% block image_preview_url %} {% if card.card_image %}{{ card.card_image.url }}{% else %}NOIMG{% endif %}{% endblock %}
 
+{% block js %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static 'js/view_card.js' %}"></script>
+{% endblock %}
+
 {% block adminoptions %}
     {{ block.super }}
     {% if request.user.is_staff %}
