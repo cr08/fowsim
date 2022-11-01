@@ -654,7 +654,10 @@ def copy_decklist(request, decklist_id=None):
 @require_POST
 @reddit_bot
 def reddit_bot_query(request):
-    data = json.loads(request.body.decode('UTF-8'))
+    try:
+        data = json.loads(request.body.decode('UTF-8'))
+    except (json.JSONDecodeError, json.decoder.JSONDecodeError):
+        return HttpResponse('Error loading json', status=401)
     words = data.get('keywords', None)
     if not words:
         return HttpResponse('No keywords provided', status=400)
