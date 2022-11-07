@@ -27,10 +27,6 @@
 
 }
 
-#referred-by{
-    padding-top: 30px;
-}
-
 .referred-by-title{
     font-weight: bold;
 }
@@ -181,4 +177,21 @@
 #expand-decklists{
     cursor: pointer;
 
+}
+
+.banned-icon{
+    width: 21px;
+    padding-right: 3px;
+}
+
+.banned-icon, .ban-text{
+    display: inline;
+}
+
+.banlist-title{
+    display: block;
+}
+
+.reprints .card-text-info-text{
+    display: block;
 }
