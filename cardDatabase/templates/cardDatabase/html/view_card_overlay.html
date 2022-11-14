@@ -29,21 +29,32 @@ let currentTimestamp = Date.now();
 var pageTime;
 pageTime = Math.floor(currentTimestamp/1000);
 
-
 if(typeof(EventSource) !== "undefined") {
     var source=new EventSource("{% settings_value "SSE_BASE_URL" %}sse.php");
     source.onmessage = function(event) {
         var msg = $.parseJSON(event.data);
+    
+    document.addEventListener('swup:pagePreloaded', function(){
+            console.log("OBS_PUSH: Page Preloaded, loading new page...")
+            swup.loadPage({url: "/card_overlay/" + msg.card + "/"});
+    });
 
 	if(msg.timestamp > pageTime) {
 
 		if(msg.card == "XYZ-1234") {
-			console.log("OBS_PUSH: Push data new. Pushing to card back/blank slate.");
+
+            console.log("OBS_PUSH: Push data new. Pushing to card back/blank slate.");
 			swup.loadPage({url: "/card_overlay_start/"});
 
 		} else {
-			console.log("OBS_PUSH: Push data new. Pushing to " + msg.card);
-			swup.loadPage({url: "/card_overlay/" + msg.card + "/"});
+
+            console.log("OBS_PUSH: Preloading new card page...");
+            document.getElementById('hidden_img').src = "/media/cards/" + msg.card + ".png";
+            $(".cachedimage").on("load", function(){
+                console.log("OBS_PUSH: New card image cached, loading new page...")
+                swup.loadPage({url: "/card_overlay/" + msg.card + "/"});
+            });
+            
 		}
 		pageTime = msg.timestamp;
 		console.log("OBS_PUSH: pageTime updated");
@@ -70,7 +81,7 @@ if(typeof(EventSource) !== "undefined") {
             {% endblock %}
         </head>
         <body>
-
+            <img style="display:none" id="hidden_img" src="{{ card.card_image.url }}" class="cachedimage" />
 {% block body %}
 
     {% include 'cardDatabase/html/card_details_overlay.html' with referred_by=card|card_referenced_by card=card %}

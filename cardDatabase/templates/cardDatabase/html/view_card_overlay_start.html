@@ -38,12 +38,19 @@ if(typeof(EventSource) !== "undefined") {
 	if(msg.timestamp > pageTime) {
 
 		if(msg.card == "XYZ-1234") {
+
 			console.log("OBS_PUSH: Push data new. Pushing to card back/blank slate.");
 			swup.loadPage({url: "/card_overlay_start/"});
 
 		} else {
-			console.log("OBS_PUSH: Push data new. Pushing to " + msg.card);
-			swup.loadPage({url: "/card_overlay/" + msg.card + "/"});
+
+            console.log("OBS_PUSH: Preloading new card page...");
+            document.getElementById('hidden_img').src = "/media/cards/" + msg.card + ".png";
+            $(".cachedimage").on("load", function(){
+                console.log("OBS_PUSH: New card image cached, loading new page...")
+                swup.loadPage({url: "/card_overlay/" + msg.card + "/"});
+            });
+
 		}
 		pageTime = msg.timestamp;
 		console.log("OBS_PUSH: pageTime updated");
@@ -69,7 +76,7 @@ if(typeof(EventSource) !== "undefined") {
             {% endblock %}
         </head>
         <body>
-
+            <img style="display:none" id="hidden_img" src="{{ card.card_image.url }}" class="cachedimage" />
 {% block body %}
 
 <div class="card-container">
