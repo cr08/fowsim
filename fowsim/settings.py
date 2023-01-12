@@ -27,6 +27,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
+# SECURITY WARNING: don't run with debug turned on in production!
 if os.environ.get('PRODUCTION'):
     print('Running in PRODUCTION mode...')
     DEBUG = False
@@ -193,7 +195,7 @@ LOGGING = {
         },
     },
     'root': {
-        'handlers': [],
+        'handlers': ['console'],
         'level': 'WARNING',
     },
 }
@@ -213,8 +215,3 @@ LOGOUT_REDIRECT_URL = 'cardDatabase-search'
 SESSION_COOKIE_AGE = 63072000
 
 DEFAULT_EXCEPTION_REPORTER = 'fowsim.log.AddRequestBodyExceptionReporter'
-
-if DEBUG:
-    REDDIT_BOT_API_KEY = 'botkey'
-else:
-    REDDIT_BOT_API_KEY = os.environ.get('REDDIT_BOT_API_KEY')
