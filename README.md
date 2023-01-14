@@ -3,13 +3,16 @@
 
 ## To-Do:
 * ✅ Adding custom card overlay template for streaming
-* ❌ Finalize/fix overlay animations and formatting
+* ✅ Finalize/fix overlay animations and formatting
 * ✅ Adding 'push' mechanism to card display pages to push out new cards to stream overlay from a remote user
-* ❌ Tracking down missing card images that do not exist on FOWTCG at the time of this commit
+* ✅ Tracking down missing card images that do not exist on FOWTCG at the time of this commit
     * If you wish to request access to the AWS repo as lined out in CONTRIBUTORS.md, revert changes in [Commit d2c48d3](https://github.com/cr08/fowsim/commit/d2c48d31ec483905cbb45b6f2c31a68116bda331)
 * ❔Adding missing card info to JSON as needed (Scheherazade bot has a similar JSON card info file which may be more up to date and may need to be merged accordingly)
 * ❔Add separate animation for J-Ruler flips that flip directly to the back side instead of the static 'Force of Will' cardback.
 * ❔Integrate hosted overlay backend files in [sse_data] into Django/FoWsim proper
+
+## Notes:
+* The card overlay code relies on PNG card images with transparent corners/borders to display properly. Most of the code is a bit janky but is functional. I'm open to PR's.
 
 ## Operational Demo Video:
 * Coming Soon!
