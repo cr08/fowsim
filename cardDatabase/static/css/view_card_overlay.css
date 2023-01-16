@@ -208,7 +208,7 @@ html.is-leaving .transition-fade {
     background-position: 0 0;
     background-size: 50vw;
     background-repeat: no-repeat;
-
+    border-radius: 6%/4%;
 }
 
 .card .front {
