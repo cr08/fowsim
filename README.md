@@ -12,7 +12,7 @@
 * ❔Integrate hosted overlay backend files in [sse_data] into Django/FoWsim proper
 
 ## Notes:
-* The card overlay code relies on PNG card images with transparent corners/borders to display properly. Most of the code is a bit janky but is functional. I'm open to PR's.
+* ~~The card overlay code relies on PNG card images with transparent corners/borders to display properly. Most of the code is a bit janky but is functional. I'm open to PR's.~~ This should be fixed as part of [Commit a41a390](https://github.com/cr08/fowsim/commit/a41a390d41ea8246fbf306866a79366568c88a20) and non-transparent or JPG files should work. Please submit an issue if you find a corner case where this does not work.
 
 ## Operational Demo Video:
 * Coming Soon!
