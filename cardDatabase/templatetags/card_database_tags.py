@@ -96,9 +96,18 @@ def replace_newlines(text):
     return text.replace('\n', '<br />')
 
 
+def replace_angled_brackets(text):
+    matches = re.findall('&lt;&lt;[\w]+&gt;&gt;', text)
+    for match in matches:
+        text = text.replace(match, f'<b>‹‹{match[len("&lt;&lt;"):-len("&gt;&gt;")]}››</b>')
+
+    return text
+
+
 @register.simple_tag
 def format_ability_text(text):
     text = escape_tags(text)  # Must be first to escape <> before mark_safe e.g. "Force Resonance <Chaos>"
+    text = replace_angled_brackets(text)
     text = format_cost_text(text)
     text = make_bubbles(text)
     text = add_rest_icon(text)
