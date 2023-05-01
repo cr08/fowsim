@@ -84,7 +84,8 @@ CARD_TYPE_VALUES = [
     'Basic J-Ruler',
     'J-Ruler'
     'Spell:Chant-Standby',
-    'Resonator'
+    'Resonator',
+    'Sub-ruler'
 ]
 CARD_SUBTYPE_VALUES = [
     'J',
@@ -313,7 +314,8 @@ SET_DATA = {
                 {'code': 'HSD', 'name': 'Hero Cluster Starter Decks'},
                 {'code': 'NWE', 'name': 'A New World Emerges'},
                 {'code': 'TUS', 'name': 'The Underworld of Secrets'},
-                {'code': 'TWS', 'name': 'The War of the Suns'}
+                {'code': 'TWS', 'name': 'The War of the Suns'},
+                {'code': 'CMB', 'name': 'Crimson Moon\'s Battleground'}
             ]
         }
     ]
@@ -369,6 +371,7 @@ DATABASE_CARD_TYPE_GROUPS = [
             'Ruler',
             'J-Ruler',
             'Order',
+            'Sub-ruler',
             'Basic Ruler',
             'Basic J-Ruler',
         ]
@@ -558,7 +561,10 @@ SETS_IN_ORDER = [
     'H2 Prerelease Party',
     'TWS',
     'H3 Buy a Box',
-    'H3 Prerelease Party'
+    'H3 Prerelease Party',
+    'CMB',
+    'H4 Buy a Box',
+    'H4 Prerelease Party',
 ]
 
 SEARCH_CARD_TYPES_INCLUDE = {
@@ -647,6 +653,10 @@ SEARCH_SETS_INCLUDE = {
     'TWS': [
         'H3 Buy a Box',
         'H3 Prerelease Party'
+    ],
+    'CMB': [
+        'H4 Prerelease Party',
+        'H4 Buy a Box'
     ]
 }
 
