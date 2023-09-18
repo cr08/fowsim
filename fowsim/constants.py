@@ -31,6 +31,7 @@ RARITY_COMMON = 'Common'
 RARITY_UNCOMMON = 'Uncommon'
 RARITY_RARE = 'Rare'
 RARITY_SUPER_RARE = 'Super Rare'
+RARITY_EXTENSION_RARE = 'Extension Rare'
 RARITY_TOKEN = 'Token'
 RARITY_MARVEL_RARE = 'Marvel Rare'
 RARITY_RULER = 'Ruler'
@@ -45,6 +46,7 @@ RARITY_COMMON_VALUE = 'C'
 RARITY_UNCOMMON_VALUE = 'U'
 RARITY_RARE_VALUE = 'R'
 RARITY_SUPER_RARE_VALUE = 'SR'
+RARITY_EXTENSION_RARE_VALUE = 'XR'
 RARITY_TOKEN_VALUE = 'T'
 RARITY_MARVEL_RARE_VALUE = 'MR'
 RARITY_RULER_VALUE = 'RR'
@@ -60,6 +62,7 @@ RARITY_CHOICE_VALUES = (
     (RARITY_UNCOMMON_VALUE, RARITY_UNCOMMON),
     (RARITY_RARE_VALUE, RARITY_RARE),
     (RARITY_SUPER_RARE_VALUE, RARITY_SUPER_RARE),
+    (RARITY_EXTENSION_RARE_VALUE, RARITY_EXTENSION_RARE),
     (RARITY_TOKEN_VALUE, RARITY_TOKEN),
     (RARITY_MARVEL_RARE_VALUE, RARITY_MARVEL_RARE),
     (RARITY_RULER_VALUE, RARITY_RULER),
@@ -85,7 +88,8 @@ CARD_TYPE_VALUES = [
     'J-Ruler'
     'Spell:Chant-Standby',
     'Resonator',
-    'Sub-ruler'
+    'Sub-ruler',
+    'Extension Rule',
 ]
 CARD_SUBTYPE_VALUES = [
     'J',
@@ -316,7 +320,8 @@ SET_DATA = {
                 {'code': 'TUS', 'name': 'The Underworld of Secrets'},
                 {'code': 'TWS', 'name': 'The War of the Suns'},
                 {'code': 'CMB', 'name': 'Crimson Moon\'s Battleground'},
-                {'code': 'ABC', 'name': 'Arcana Battle Colosseum'}
+                {'code': 'ABC', 'name': 'Arcana Battle Colosseum'},
+                {'code': 'CST', 'name': 'Clash of the Star Trees'}
             ]
         }
     ]
@@ -394,6 +399,7 @@ DATABASE_CARD_TYPE_GROUPS = [
     {
         'name': 'Other Decks',
         'types': [
+            'Extension Rule',
             'Master Rune',
             'Rune',
         ]
@@ -567,6 +573,10 @@ SETS_IN_ORDER = [
     'H4 Buy a Box',
     'H4 Prerelease Party',
     'ABC',
+    'H5 Buy a Box',
+    'H5 Prerelease Party',
+    'CST',
+    'MC02',  # Memoria Collection
 ]
 
 SEARCH_CARD_TYPES_INCLUDE = {
@@ -659,6 +669,11 @@ SEARCH_SETS_INCLUDE = {
     'CMB': [
         'H4 Prerelease Party',
         'H4 Buy a Box'
+    ],
+    'CST': [
+        'H5 Buy a Box',
+        'H5 Prerelease Party',
+        'MC02'
     ]
 }
 
