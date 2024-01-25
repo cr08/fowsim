@@ -38,6 +38,7 @@ class Set(models.Model):
 class Race(models.Model):
     class Meta:
         app_label = 'cardDatabase'
+        ordering = ['name']
 
     def __str__(self):
         return self.name
@@ -63,6 +64,21 @@ class CardAbility(models.Model):
     ability_text = models.ForeignKey('AbilityText', on_delete=models.CASCADE, related_name='card')
     position = models.IntegerField(blank=False, null=False, default=1)
 
+class Tag(models.Model):
+    def __str__(self):
+        return self.name    
+    name = models.CharField(max_length=200, null=False, blank=False)
+
+
+class CardArtist(models.Model):
+    class Meta:
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
+    name = models.CharField(max_length=200, null=False, blank=False)
+
 
 class Card(AbstractModel):
     class Meta:
@@ -82,6 +98,8 @@ class Card(AbstractModel):
     types = models.ManyToManyField('Type', related_name='types')
     ability_texts = models.ManyToManyField('AbilityText', related_name='cards', blank=True, through=CardAbility)
     colours = models.ManyToManyField('CardColour', related_name='cards', blank=False)
+    tag = models.ManyToManyField('Tag', related_name='cards', blank=True)
+    artists = models.ManyToManyField('CardArtist', related_name='cards', blank=True)
 
     def __str__(self):
         return self.name
@@ -131,15 +149,17 @@ class Card(AbstractModel):
 
     @property
     def other_sides(self):
-        shared_id = self.card_id
+        shared_number = self.set_number
+        if not shared_number:
+            return Card.objects.none()  # Unusual set code like "Prerelease party" or "Buy a box" without a -
         self_other_side_char = ''
         for to_remove in CONS.OTHER_SIDE_CHARACTERS:
-            if to_remove in shared_id:
-                shared_id = shared_id.replace(to_remove, '')
+            if to_remove in shared_number:
+                shared_number = shared_number.replace(to_remove, '')
                 self_other_side_char = to_remove
 
         other_side_query = Q()
-
+        shared_id = self.set_code + '-' + shared_number
         if self_other_side_char:
             # This isn't the front side so check with no extra chars
             other_side_query |= Q(card_id=shared_id)

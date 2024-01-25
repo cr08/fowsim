@@ -41,6 +41,14 @@ WILL_TYPE_TO_FILENAMES = {
     '10': '10.png',
     '11': '11.png',
     '12': '12.png',
+    '13': '13.png',
+    '14': '14.png',
+    '15': '15.png',
+    '16': '16.png',
+    '17': '17.png',
+    '18': '18.png',
+    '19': '19.png',
+    '20': '20.png',
     'X': 'X.png',
 }
 
@@ -143,13 +151,13 @@ def referenced_card_img_html(card):
 
 def add_card_reference_links(ability_text):
     # Check for names in apostrophes that aren't preceded by "God's Art"
-    matches = re.findall(r'(?<!God\'s Art )"[^\"\"]+"', ability_text)
+    matches = re.findall(r'(?<!God\'s Art)\s"([^\"\"]+)"', ability_text)
     for match in matches:
         try:
             try:
-                card = Card.objects.get(name=match[1:-1])
+                card = Card.objects.get(name=match)
             except Card.MultipleObjectsReturned:
-                card = Card.objects.filter(name=match[1:-1]).first()
+                card = Card.objects.filter(name=match).first()
             card_url = card_id_to_url(card.card_id)
             ability_text = ability_text.replace(match, f'"<a class="referenced-card" href="{card_url}">{card.name}{referenced_card_img_html(card)}</a>"')
         except Card.DoesNotExist:
@@ -218,6 +226,23 @@ def dict_to_json(dict_obj):
     return mark_safe(json.dumps(ast.literal_eval(str(dict_obj))))
 
 @register.simple_tag
+def map_tags(card):
+    output = []
+    for tag in card.card.tag.all():
+        output.append(tag.id)
+    if len(output) > 0:
+        return mark_safe(json.dumps(ast.literal_eval(str(output))))
+    else:
+        return ''
+
+@register.simple_tag
+def has_tags(card):
+    if len(card.card.tag.all()) > 0 and card.zone.zone.name != 'Side Deck':
+        return True
+    else:
+        return False
+
+@register.simple_tag
 def cards_to_json(cards):
     output_cards = []
     for card in cards:
@@ -225,6 +250,7 @@ def cards_to_json(cards):
             "name": card.card.name_without_punctuation,
             "zone" : card.zone.zone.name,
             "cost": card.card.cost,
+            "img":  card.card.card_image.url,
             "quantity" : card.quantity
         }
         output_cards.append(simple_card)
